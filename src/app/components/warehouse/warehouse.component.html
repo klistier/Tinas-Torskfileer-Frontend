@@ -1,64 +1,52 @@
-@for (product of products; track $index) {
-<div class="products-container" [ngClass]="quantityDisplay ? 'blur' : ''">
-  <h2>{{ product.name }}</h2>
-  <p>Beskrivning: {{ product.description }}</p>
-  <p>Antal i lager: {{ product.stock }}</p>
-  <p>ID: {{ product.id }}</p>
-  <button (click)="ToggleQuantityPopUp(product.id)">
-    Ändra lagersaldo
-  </button>
-  <button (click)="HandleRemoveProduct(product.id)">Ta bort produkt</button>
-</div>
-<hr />
+<div class="warehouse-container">
+  <mat-table [dataSource]="products">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+      <mat-cell *matCellDef="let product"> {{ product.id }} </mat-cell>
+    </ng-container>
 
-@if (quantityDisplay) { @if (selectedProductId == product.id) {
-<div class="quantity-container">
-  <p>Antal i lager: {{ product.stock }}</p>
-  <label [htmlFor]="'add-quantity' + product.id"></label>
-  <input
-    type="number"
-    name="add-quantity"
-    [id]="'add-quantity' + product.id"
-    [(ngModel)]="addQuantity"
-  />
-  <button (click)="HandleAddQuantity(product.id)">Lägg till enheter</button>
-  <label [htmlFor]="'remove-quantity' + product.id"></label>
-  <input
-    type="number"
-    name="remove-quantity"
-    [id]="'remove-quantity' + product.id"
-    [(ngModel)]="removeQuantity"
-  />
-  <button (click)="HandleRemoveQuantity(product.id)">Ta bort enheter</button>
-  <button>Tillbaka</button>
-</div>
-}}}
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Namn</mat-header-cell>
+      <mat-cell *matCellDef="let product">{{ product.name }}</mat-cell>
+    </ng-container>
 
-<div [ngClass]="quantityDisplay ? 'blur' : ''">
-  <h1>Lägg till produkt</h1>
-  <label for="product-name"></label>
-  <input
-    type="text"
-    name="product-name"
-    id="product-name"
-    placeholder="Produktens namn ..."
-    [(ngModel)]="name"
-  />
-  <label for="product-description"></label>
-  <input
-    type="text"
-    name="product-description"
-    id="product-description"
-    placeholder="Beskrivning av produkten ..."
-    [(ngModel)]="description"
-  />
-  <label for="product-quantity"></label>
-  <input
-    type="text"
-    name="product-quantity"
-    id="product-quantity"
-    placeholder="Antal i lager ..."
-    [(ngModel)]="removeQuantity"
-  />
-  <button (click)="HandleAddProduct()">Lägg till produkt</button>
+    <ng-container matColumnDef="stock">
+      <mat-header-cell *matHeaderCellDef>Lagersaldo</mat-header-cell>
+      <mat-cell *matCellDef="let product">{{ product.stock }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="adjust">
+      <mat-header-cell *matHeaderCellDef>Justera</mat-header-cell>
+      <mat-cell *matCellDef="let product">
+        <div class="button-container">
+          <button mat-raised-button color="primary" (click)="ToggleQuantityPopUp(product.id)">Ändra saldo</button>
+          <button mat-raised-button color="warn" (click)="HandleRemoveProduct(product.id)">Ta bort produkt</button>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: columsToDisplay"></mat-row>
+  </mat-table>
+
+  <div>
+    <h1>Lägg till produkt</h1>
+    <label for="product-name"></label>
+    <input
+      type="text"
+      name="product-name"
+      id="product-name"
+      placeholder="Produktens namn ..."
+      [(ngModel)]="productName"
+    />
+    <label for="product-quantity"></label>
+    <input
+      type="text"
+      name="product-quantity"
+      id="product-quantity"
+      placeholder="Antal i lager ..."
+      [(ngModel)]="productStock"
+    />
+    <button (click)="HandleAddProduct()">Lägg till produkt</button>
+  </div>
 </div>

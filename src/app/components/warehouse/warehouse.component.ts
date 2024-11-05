@@ -3,22 +3,25 @@ import { WarehouseService } from '../../services/warehouse.service';
 import { Product } from '../../models/product';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-warehouse',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatTableModule, MatButtonModule],
   templateUrl: './warehouse.component.html',
   styleUrl: './warehouse.component.css',
 })
 export class WarehouseComponent implements OnInit {
   products: Product[] = [];
-  name: string = '';
+  productName: string = '';
   description: string = '';
-  addQuantity: number = 0;
+  productStock: number = 0;
   removeQuantity: number = 0;
   quantityDisplay: boolean = false;
   selectedProductId: number | null = null;
+  columsToDisplay = ['id', 'name', 'stock', 'adjust'];
 
   constructor(private warehouseService: WarehouseService) {}
   ngOnInit(): void {
@@ -38,7 +41,7 @@ export class WarehouseComponent implements OnInit {
 
   HandleAddProduct() {
     this.warehouseService
-      .AddProduct(this.name, this.description, this.addQuantity)
+      .AddProduct(this.productName, this.productStock)
       .subscribe({
         next: (res) => {
           this.RefreshProducts();
@@ -50,7 +53,7 @@ export class WarehouseComponent implements OnInit {
   }
 
   HandleAddQuantity(id: number) {
-    this.warehouseService.AddQuantity(id, this.addQuantity).subscribe({
+    this.warehouseService.AddQuantity(id, this.productStock).subscribe({
       next: (res) => {
         this.RefreshProducts();
       },
@@ -87,5 +90,3 @@ export class WarehouseComponent implements OnInit {
     this.selectedProductId = id;
   }
 }
-
-//https://v17.angular.io/guide/router-tutorial-toh

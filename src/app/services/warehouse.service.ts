@@ -15,12 +15,8 @@ export class WarehouseService {
     return this.http.get<Product[]>(this.url);
   }
 
-  AddProduct(
-    name: string,
-    description: string,
-    stock: number
-  ): Observable<Product> {
-    return this.http.post<Product>(this.url, { name, description, stock });
+  AddProduct(name: string, stock: number): Observable<Product> {
+    return this.http.post<Product>(this.url, { name, stock });
   }
 
   AddQuantity(id: number, quantity: number): Observable<Product> {

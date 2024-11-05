@@ -1,7 +1,8 @@
-.blur{
-    filter: blur(4px);
+.blur {
+  filter: blur(4px);
 }
 
-.quantity-container{
-    
+.button-container{
+  display: flex;
+  justify-content: flex-start;
 }
