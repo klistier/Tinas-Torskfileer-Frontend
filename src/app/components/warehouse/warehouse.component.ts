@@ -5,11 +5,19 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { PopupService } from '../../services/popup.service';
 
 @Component({
   selector: 'app-warehouse',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatTableModule, MatButtonModule],
+  imports: [
+    FormsModule,
+    CommonModule,
+    MatTableModule,
+    MatButtonModule,
+    MatDialogModule,
+  ],
   templateUrl: './warehouse.component.html',
   styleUrl: './warehouse.component.css',
 })
@@ -23,7 +31,7 @@ export class WarehouseComponent implements OnInit {
   selectedProductId: number | null = null;
   columsToDisplay = ['id', 'name', 'stock', 'adjust'];
 
-  constructor(private warehouseService: WarehouseService) {}
+  constructor(private warehouseService: WarehouseService, private popupService: PopupService) {}
   ngOnInit(): void {
     this.RefreshProducts();
   }
@@ -85,8 +93,7 @@ export class WarehouseComponent implements OnInit {
     });
   }
 
-  ToggleQuantityPopUp(id: number) {
-    this.quantityDisplay = !this.quantityDisplay;
-    this.selectedProductId = id;
+  OpenPopup() {
+    this.popupService.OpenPopup();
   }
 }

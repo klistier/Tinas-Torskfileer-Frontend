@@ -19,7 +19,7 @@
       <mat-header-cell *matHeaderCellDef>Justera</mat-header-cell>
       <mat-cell *matCellDef="let product">
         <div class="button-container">
-          <button mat-raised-button color="primary" (click)="ToggleQuantityPopUp(product.id)">Ändra saldo</button>
+          <button mat-raised-button color="primary" (click)="OpenPopup()">Ändra saldo</button>
           <button mat-raised-button color="warn" (click)="HandleRemoveProduct(product.id)">Ta bort produkt</button>
         </div>
       </mat-cell>
@@ -50,3 +50,4 @@
     <button (click)="HandleAddProduct()">Lägg till produkt</button>
   </div>
 </div>
+
