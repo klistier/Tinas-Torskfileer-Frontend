@@ -1,0 +1,64 @@
+@for (product of products; track $index) {
+<div class="products-container" [ngClass]="quantityDisplay ? 'blur' : ''">
+  <h2>{{ product.name }}</h2>
+  <p>Beskrivning: {{ product.description }}</p>
+  <p>Antal i lager: {{ product.stock }}</p>
+  <p>ID: {{ product.id }}</p>
+  <button (click)="ToggleQuantityPopUp(product.id)">
+    Ändra lagersaldo
+  </button>
+  <button (click)="HandleRemoveProduct(product.id)">Ta bort produkt</button>
+</div>
+<hr />
+
+@if (quantityDisplay) { @if (selectedProductId == product.id) {
+<div class="quantity-container">
+  <p>Antal i lager: {{ product.stock }}</p>
+  <label [htmlFor]="'add-quantity' + product.id"></label>
+  <input
+    type="number"
+    name="add-quantity"
+    [id]="'add-quantity' + product.id"
+    [(ngModel)]="addQuantity"
+  />
+  <button (click)="HandleAddQuantity(product.id)">Lägg till enheter</button>
+  <label [htmlFor]="'remove-quantity' + product.id"></label>
+  <input
+    type="number"
+    name="remove-quantity"
+    [id]="'remove-quantity' + product.id"
+    [(ngModel)]="removeQuantity"
+  />
+  <button (click)="HandleRemoveQuantity(product.id)">Ta bort enheter</button>
+  <button>Tillbaka</button>
+</div>
+}}}
+
+<div [ngClass]="quantityDisplay ? 'blur' : ''">
+  <h1>Lägg till produkt</h1>
+  <label for="product-name"></label>
+  <input
+    type="text"
+    name="product-name"
+    id="product-name"
+    placeholder="Produktens namn ..."
+    [(ngModel)]="name"
+  />
+  <label for="product-description"></label>
+  <input
+    type="text"
+    name="product-description"
+    id="product-description"
+    placeholder="Beskrivning av produkten ..."
+    [(ngModel)]="description"
+  />
+  <label for="product-quantity"></label>
+  <input
+    type="text"
+    name="product-quantity"
+    id="product-quantity"
+    placeholder="Antal i lager ..."
+    [(ngModel)]="removeQuantity"
+  />
+  <button (click)="HandleAddProduct()">Lägg till produkt</button>
+</div>
