@@ -1,0 +1,26 @@
+<div class="add-product-container">
+  <h1 mat-dialog-title>Lägg till produkt</h1>
+  <mat-form-field>
+    <mat-label>Namn</mat-label>
+    <input
+      matInput
+      type="text"
+      name="product-name"
+      id="product-name"
+      placeholder="Produktens namn ..."
+      [(ngModel)]="productName"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Lagersaldo</mat-label>
+    <input
+      matInput
+      type="text"
+      name="product-quantity"
+      id="product-quantity"
+      placeholder="Antal i lager ..."
+      [(ngModel)]="productStock"
+    />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="HandleAddProduct()">Lägg till produkt</button>
+</div>

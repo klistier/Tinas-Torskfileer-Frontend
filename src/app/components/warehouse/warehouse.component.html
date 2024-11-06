@@ -19,8 +19,20 @@
       <mat-header-cell *matHeaderCellDef>Justera</mat-header-cell>
       <mat-cell *matCellDef="let product">
         <div class="button-container">
-          <button mat-raised-button color="primary" (click)="OpenPopup()">Ändra saldo</button>
-          <button mat-raised-button color="warn" (click)="HandleRemoveProduct(product.id)">Ta bort produkt</button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="OpenQuantityPopup(product.id)"
+          >
+            Ändra saldo
+          </button>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="HandleRemoveProduct(product.id)"
+          >
+            Ta bort produkt
+          </button>
         </div>
       </mat-cell>
     </ng-container>
@@ -28,26 +40,4 @@
     <mat-header-row *matHeaderRowDef="columsToDisplay"></mat-header-row>
     <mat-row *matRowDef="let myRowData; columns: columsToDisplay"></mat-row>
   </mat-table>
-
-  <div>
-    <h1>Lägg till produkt</h1>
-    <label for="product-name"></label>
-    <input
-      type="text"
-      name="product-name"
-      id="product-name"
-      placeholder="Produktens namn ..."
-      [(ngModel)]="productName"
-    />
-    <label for="product-quantity"></label>
-    <input
-      type="text"
-      name="product-quantity"
-      id="product-quantity"
-      placeholder="Antal i lager ..."
-      [(ngModel)]="productStock"
-    />
-    <button (click)="HandleAddProduct()">Lägg till produkt</button>
-  </div>
 </div>
-

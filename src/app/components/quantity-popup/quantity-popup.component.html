@@ -1,10 +1,28 @@
 <div class="popup-container">
   <div class="input-container">
-    <p mat-dialog-title>Lägg till / Ta bort saldo</p>
-    <label for="add-quantity">Lägg till</label>
-    <input type="number" name="add-quantity" />
-    <label for="remove-quantity">Ta bort</label>
-    <input type="number" />
+    <h2 mat-dialog-title>Lägg till / Ta bort saldo</h2>
+    <label for="modify-quantity" mat-dialog-content></label>
+    <input
+      type="number"
+      name="modify-quantity"
+      class="quantity-input"
+      [(ngModel)]="quantity"
+    />
   </div>
-  <button mat-raised-button color="primary" class="confirm-btn">Ok</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="confirm-btn"
+    (click)="HandleAddQuantity()"
+  >
+    Lägg till
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    class="confirm-btn"
+    (click)="HandleRemoveQuantity()"
+  >
+    Ta bort
+  </button>
 </div>

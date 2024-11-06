@@ -23,21 +23,15 @@ import { PopupService } from '../../services/popup.service';
 })
 export class WarehouseComponent implements OnInit {
   products: Product[] = [];
-  productName: string = '';
-  description: string = '';
-  productStock: number = 0;
-  removeQuantity: number = 0;
-  quantityDisplay: boolean = false;
-  selectedProductId: number | null = null;
   columsToDisplay = ['id', 'name', 'stock', 'adjust'];
 
-  constructor(private warehouseService: WarehouseService, private popupService: PopupService) {}
-  ngOnInit(): void {
-    this.RefreshProducts();
-  }
+  constructor(
+    private warehouseService: WarehouseService,
+    private popupService: PopupService
+  ) {}
 
-  RefreshProducts() {
-    this.warehouseService.GetAllProducts().subscribe({
+  ngOnInit(): void {
+    this.warehouseService.products$.subscribe({
       next: (res) => {
         this.products = res;
       },
@@ -47,53 +41,18 @@ export class WarehouseComponent implements OnInit {
     });
   }
 
-  HandleAddProduct() {
-    this.warehouseService
-      .AddProduct(this.productName, this.productStock)
-      .subscribe({
-        next: (res) => {
-          this.RefreshProducts();
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-  }
-
-  HandleAddQuantity(id: number) {
-    this.warehouseService.AddQuantity(id, this.productStock).subscribe({
-      next: (res) => {
-        this.RefreshProducts();
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-
-  HandleRemoveQuantity(id: number) {
-    this.warehouseService.RemoveQuantity(id, this.removeQuantity).subscribe({
-      next: (res) => {
-        this.RefreshProducts();
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-
   HandleRemoveProduct(id: number) {
     this.warehouseService.RemoveProduct(id).subscribe({
-      next: (res) => {
-        this.RefreshProducts();
-      },
+      next: (res) => {},
       error: (err) => {
         console.log(err);
       },
     });
   }
 
-  OpenPopup() {
-    this.popupService.OpenPopup();
+  OpenQuantityPopup(id: number) {
+    this.popupService.OpenQuantityPopup(id);
   }
+
+
 }
