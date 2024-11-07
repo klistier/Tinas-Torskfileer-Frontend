@@ -10,18 +10,18 @@ export class WarehouseService {
   private url = 'https://localhost:7250/api/products';
 
   constructor(private http: HttpClient) {
-    this.RefreshProducts();
+    this.refreshProducts();
   }
 
   private productsSubject = new BehaviorSubject<Product[]>([]);
   public products$ = this.productsSubject.asObservable();
 
-  GetAllProducts(): Observable<Product[]> {
+  getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.url);
   }
 
-  RefreshProducts() {
-    this.GetAllProducts().subscribe({
+  refreshProducts() {
+    this.getAllProducts().subscribe({
       next: (res) => {
         this.productsSubject.next(res);
       },
@@ -31,37 +31,45 @@ export class WarehouseService {
     });
   }
 
-  AddProduct(name: string, stock: number) {
+  addProduct(name: string, stock: number) {
     return this.http.post<Product>(this.url, { name, stock }).pipe(
       tap(() => {
-        this.RefreshProducts();
+        this.refreshProducts();
       })
     );
   }
 
-  AddQuantity(id: number, quantity: number) {
-    return this.http.patch<Product>(`${this.url}/${id}/add-quantity`, {
-      id,
-      quantity,
-    }).pipe(tap(() => {
-      this.RefreshProducts();
-    }));
+  addQuantity(id: number, quantity: number) {
+    return this.http
+      .patch<Product>(`${this.url}/${id}/add-quantity`, {
+        id,
+        quantity,
+      })
+      .pipe(
+        tap(() => {
+          this.refreshProducts();
+        })
+      );
   }
 
-  RemoveProduct(id: number) {
+  removeProduct(id: number) {
     return this.http.delete<Product>(`${this.url}/${id}`).pipe(
       tap(() => {
-        this.RefreshProducts();
+        this.refreshProducts();
       })
     );
   }
 
-  RemoveQuantity(id: number, quantity: number) {
-    return this.http.patch<Product>(`${this.url}/${id}/remove-quantity`, {
-      id,
-      quantity,
-    }).pipe(tap(()=> {
-      this.RefreshProducts();
-    }));
+  removeQuantity(id: number, quantity: number) {
+    return this.http
+      .patch<Product>(`${this.url}/${id}/remove-quantity`, {
+        id,
+        quantity,
+      })
+      .pipe(
+        tap(() => {
+          this.refreshProducts();
+        })
+      );
   }
 }

@@ -13,6 +13,6 @@ export class NavComponent {
   constructor(private popupService: PopupService) {}
 
   OpenAddProductPopup() {
-    this.popupService.OpenAddProductPopup();
+    this.popupService.openAddProductPopup();
   }
 }

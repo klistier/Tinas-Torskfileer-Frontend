@@ -31,15 +31,15 @@ export class AddProductPopupComponent {
     private popupService: PopupService
   ) {}
 
-  HandleAddProduct() {
+  handleAddProduct() {
     this.warehouseService
-      .AddProduct(this.productName, this.productStock)
+      .addProduct(this.productName, this.productStock)
       .subscribe({
         next: (res) => {},
         error: (err) => {
           console.log(err);
         },
       });
-    this.popupService.ClosePopop();
+    this.popupService.closePopop();
   }
 }

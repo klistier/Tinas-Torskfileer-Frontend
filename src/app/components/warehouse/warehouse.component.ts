@@ -5,8 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PopupService } from '../../services/popup.service';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { RemoveProductPopupComponent } from '../remove-product-popup/remove-product-popup.component';
 
 @Component({
   selector: 'app-warehouse',
@@ -17,9 +20,11 @@ import { PopupService } from '../../services/popup.service';
     MatTableModule,
     MatButtonModule,
     MatDialogModule,
+    ConfirmDialogModule,
   ],
   templateUrl: './warehouse.component.html',
   styleUrl: './warehouse.component.css',
+  providers: [ConfirmationService, MessageService],
 })
 export class WarehouseComponent implements OnInit {
   products: Product[] = [];
@@ -27,7 +32,8 @@ export class WarehouseComponent implements OnInit {
 
   constructor(
     private warehouseService: WarehouseService,
-    private popupService: PopupService
+    private popupService: PopupService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -41,8 +47,8 @@ export class WarehouseComponent implements OnInit {
     });
   }
 
-  HandleRemoveProduct(id: number) {
-    this.warehouseService.RemoveProduct(id).subscribe({
+  handleRemoveProduct(id: number) {
+    this.warehouseService.removeProduct(id).subscribe({
       next: (res) => {},
       error: (err) => {
         console.log(err);
@@ -50,9 +56,22 @@ export class WarehouseComponent implements OnInit {
     });
   }
 
-  OpenQuantityPopup(id: number) {
-    this.popupService.OpenQuantityPopup(id);
+  
+  openQuantityPopup(id: number) {
+    this.popupService.openQuantityPopup(id);
   }
 
 
+  //öppnar popup för borttagning, tar bort om res = true
+  openRemoveProductPopup(productId: number) {
+    console.log('Called');
+    this.popupService
+      .openRemoveProductPopup(productId)
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.handleRemoveProduct(productId);
+        }
+      });
+  }
 }

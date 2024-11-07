@@ -21,27 +21,27 @@ export class QuantityPopupComponent {
 
   quantity: number = 0;
 
-  HandleAddQuantity() {
+  handleAddQuantity() {
     this.warehouseService
-      .AddQuantity(this.data.productId, this.quantity)
+      .addQuantity(this.data.productId, this.quantity)
       .subscribe({
         next: (res) => {},
         error: (err) => {
           console.log(err);
         },
       });
-    this.popupService.ClosePopop();
+    this.popupService.closePopop();
   }
 
-  HandleRemoveQuantity() {
+  handleRemoveQuantity() {
     this.warehouseService
-      .RemoveQuantity(this.data.productId, this.quantity)
+      .removeQuantity(this.data.productId, this.quantity)
       .subscribe({
         next: (res) => {},
         error: (err) => {
           console.log(err);
         },
       });
-    this.popupService.ClosePopop();
+    this.popupService.closePopop();
   }
 }
