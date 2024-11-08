@@ -7,7 +7,7 @@ import { Product } from '../models/product';
   providedIn: 'root',
 })
 export class WarehouseService {
-  private url = 'https://localhost:7250/api/products';
+  private url = 'http://localhost:5226/api/products';
 
   constructor(private http: HttpClient) {
     this.refreshProducts();
@@ -17,7 +17,7 @@ export class WarehouseService {
   public products$ = this.productsSubject.asObservable();
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.url);
+    return this.http.get<Product[]>(this.url, { withCredentials: true });
   }
 
   refreshProducts() {
@@ -32,19 +32,25 @@ export class WarehouseService {
   }
 
   addProduct(name: string, stock: number) {
-    return this.http.post<Product>(this.url, { name, stock }).pipe(
-      tap(() => {
-        this.refreshProducts();
-      })
-    );
+    return this.http
+      .post<Product>(this.url, { name, stock }, { withCredentials: true })
+      .pipe(
+        tap(() => {
+          this.refreshProducts();
+        })
+      );
   }
 
   addQuantity(id: number, quantity: number) {
     return this.http
-      .patch<Product>(`${this.url}/${id}/add-quantity`, {
-        id,
-        quantity,
-      })
+      .patch<Product>(
+        `${this.url}/${id}/add-quantity`,
+        {
+          id,
+          quantity,
+        },
+        { withCredentials: true }
+      )
       .pipe(
         tap(() => {
           this.refreshProducts();
@@ -53,19 +59,25 @@ export class WarehouseService {
   }
 
   removeProduct(id: number) {
-    return this.http.delete<Product>(`${this.url}/${id}`).pipe(
-      tap(() => {
-        this.refreshProducts();
-      })
-    );
+    return this.http
+      .delete<Product>(`${this.url}/${id}`, { withCredentials: true })
+      .pipe(
+        tap(() => {
+          this.refreshProducts();
+        })
+      );
   }
 
   removeQuantity(id: number, quantity: number) {
     return this.http
-      .patch<Product>(`${this.url}/${id}/remove-quantity`, {
-        id,
-        quantity,
-      })
+      .patch<Product>(
+        `${this.url}/${id}/remove-quantity`,
+        {
+          id,
+          quantity,
+        },
+        { withCredentials: true }
+      )
       .pipe(
         tap(() => {
           this.refreshProducts();

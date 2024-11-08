@@ -9,7 +9,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PopupService } from '../../services/popup.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { RemoveProductPopupComponent } from '../remove-product-popup/remove-product-popup.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-warehouse',
@@ -21,6 +21,7 @@ import { RemoveProductPopupComponent } from '../remove-product-popup/remove-prod
     MatButtonModule,
     MatDialogModule,
     ConfirmDialogModule,
+    RouterModule
   ],
   templateUrl: './warehouse.component.html',
   styleUrl: './warehouse.component.css',
@@ -51,20 +52,17 @@ export class WarehouseComponent implements OnInit {
     this.warehouseService.removeProduct(id).subscribe({
       next: (res) => {},
       error: (err) => {
-        console.log(err);
+        console.log(err, "FETCHFEL!");
       },
     });
   }
 
-  
   openQuantityPopup(id: number) {
     this.popupService.openQuantityPopup(id);
   }
 
-
   //öppnar popup för borttagning, tar bort om res = true
   openRemoveProductPopup(productId: number) {
-    console.log('Called');
     this.popupService
       .openRemoveProductPopup(productId)
       .afterClosed()
