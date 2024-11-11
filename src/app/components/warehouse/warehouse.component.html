@@ -22,14 +22,14 @@
           <button
             mat-raised-button
             color="primary"
-            (click)="openQuantityPopup(product.id)"
+            (click)="handleOpenQuantityPopup(product.id)"
           >
             Ändra saldo
           </button>
           <button
             mat-raised-button
             color="warn"
-            (click)="openRemoveProductPopup(product.id)"
+            (click)="handleOpenRemoveProductPopup(product.id)"
           >
             Ta bort produkt
           </button>

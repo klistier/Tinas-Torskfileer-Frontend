@@ -1,15 +1,18 @@
-<mat-card>
-  <mat-form-field>
-    <mat-label>Användarnamn</mat-label>
-    <input matInput [(ngModel)]="username" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Lösenord</mat-label>
-    <input matInput [(ngModel)]="password" />
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="handleLogin()">
-    Logga in
-  </button>
-  <!-- "password": "Abc123!!",
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>Inloggning</mat-card-header>
+    <mat-form-field>
+      <mat-label>Användarnamn</mat-label>
+      <input matInput [(ngModel)]="username" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Lösenord</mat-label>
+      <input matInput [(ngModel)]="password" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="handleLogin()">
+      Logga in
+    </button>
+    <!-- "password": "Abc123!!",
       "username": "cc1", -->
-</mat-card>
+  </mat-card>
+</div>

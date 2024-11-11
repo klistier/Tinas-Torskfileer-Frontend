@@ -52,17 +52,17 @@ export class WarehouseComponent implements OnInit {
     this.warehouseService.removeProduct(id).subscribe({
       next: (res) => {},
       error: (err) => {
-        console.log(err, "FETCHFEL!");
+        console.log(err);
       },
     });
   }
 
-  openQuantityPopup(id: number) {
+  handleOpenQuantityPopup(id: number) {
     this.popupService.openQuantityPopup(id);
   }
 
   //öppnar popup för borttagning, tar bort om res = true
-  openRemoveProductPopup(productId: number) {
+  handleOpenRemoveProductPopup(productId: number) {
     this.popupService
       .openRemoveProductPopup(productId)
       .afterClosed()

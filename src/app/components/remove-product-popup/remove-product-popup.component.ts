@@ -26,6 +26,4 @@ export class RemoveProductPopupComponent {
   cancel() {
     this.dialogRef.close(false);
   }
-
-  
 }

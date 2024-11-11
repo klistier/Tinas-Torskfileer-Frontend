@@ -16,7 +16,7 @@ import { Router, RouterModule } from '@angular/router';
     FormsModule,
     MatInputModule,
     MatCardModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -30,10 +30,23 @@ export class LoginComponent {
   handleLogin() {
     this.authService.login(this.username, this.password).subscribe({
       next: (res) => {
-        this.router.navigate(['/products'])
+        this.authService.setLoginStatus(true);
+        this.router.navigate(['/products']);
+        console.log(this.authService.isLoggedIn);
       },
       error: (err) => {
-        console.log('Inloggningen misslyckades');
+        console.log(err);
+      },
+    });
+  }
+
+  handleLogout() {
+    this.authService.logout().subscribe({
+      next: (res) => {
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.log(err);
       },
     });
   }
