@@ -1,24 +1,12 @@
 <div class="nav-container">
   <h5>Tinas Torskfiléer & Träbalkar</h5>
-  <button
-    *ngIf="authService.login$ | async"
-    mat-raised-button
-    color="primary"
-    (click)="handleLogout()"
-  >
-    Logga ut
-  </button>
+  <div *ngIf="authService.login$ | async">
+    <button mat-raised-button color="primary" (click)="handleLogout()">
+      Logga ut
+    </button>
 
-  <button
-    *ngIf="(authService.login$ | async) === false"
-    mat-raised-button
-    color="primary"
-    (click)="displayLoginWindow()"
-  >
-    Logga in
-  </button>
-
-  <button mat-raised-button color="primary" (click)="openAddProductPopup()">
-    Lägg till produkt
-  </button>
+    <button mat-raised-button color="primary" (click)="openAddProductPopup()">
+      Lägg till produkt
+    </button>
+  </div>
 </div>

@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { PopupService } from '../../services/popup.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -34,7 +34,6 @@ export class WarehouseComponent implements OnInit {
   constructor(
     private warehouseService: WarehouseService,
     private popupService: PopupService,
-    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

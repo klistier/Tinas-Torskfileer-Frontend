@@ -13,7 +13,7 @@ export class WarehouseService {
     this.refreshProducts();
   }
 
-  private productsSubject = new BehaviorSubject<Product[]>([]);
+  private productsSubject = new BehaviorSubject<Product[]>([]); 
   public products$ = this.productsSubject.asObservable();
 
   getAllProducts(): Observable<Product[]> {

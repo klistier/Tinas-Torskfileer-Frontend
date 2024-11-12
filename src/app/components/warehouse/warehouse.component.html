@@ -12,7 +12,12 @@
 
     <ng-container matColumnDef="stock">
       <mat-header-cell *matHeaderCellDef>Lagersaldo</mat-header-cell>
-      <mat-cell *matCellDef="let product">{{ product.stock }} </mat-cell>
+      <mat-cell *matCellDef="let product">
+        <div class="stock-container">
+          <p>{{ product.stock }}</p>
+          <p class="warning">{{ product.lowStockWarning }}</p>
+        </div>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="adjust">

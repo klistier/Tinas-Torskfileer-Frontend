@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ import { Router, RouterModule } from '@angular/router';
     MatInputModule,
     MatCardModule,
     RouterModule,
+    CommonModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -24,6 +26,7 @@ import { Router, RouterModule } from '@angular/router';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -32,10 +35,11 @@ export class LoginComponent {
       next: (res) => {
         this.authService.setLoginStatus(true);
         this.router.navigate(['/products']);
-        console.log(this.authService.isLoggedIn);
+        this.errorMessage = '';
       },
       error: (err) => {
         console.log(err);
+        this.errorMessage = 'Felaktigt användarnamn/lösenord!';
       },
     });
   }

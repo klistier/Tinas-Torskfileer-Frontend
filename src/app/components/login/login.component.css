@@ -1,10 +1,15 @@
-.login-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
 }
 
-.login-card{
-    padding: 35px;
+.login-card {
+  padding: 35px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
 }
